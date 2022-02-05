@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.repository.MemberMapperRepository">
+    <insert id="insertXml" useGeneratedKeys="true" keyProperty="id">
+        insert into member(name, age) values(#{name}, #{age})
+    </insert>
+
+    <select id="selectXml" resultType="Member" parameterType="Long">
+        select * from member where id = #{id}
+    </select>
+
+
+    <resultMap id="BookList" type="Book">
+        <result property="memberId" column="memberid"></result>
+        <result property="bookName" column="bookname"></result>
+        <result property="price" column="price"></result>
+    </resultMap>
+    <resultMap id="MemberBookList" type="Member">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <collection property="books" resultMap="BookList"></collection>
+    </resultMap>
+<!--   기본생성자 있을 때 가능 -->
+
+    <resultMap id="Address" type="Address">
+        <result property="memberId" column="memberid"></result>
+        <result property="postcode" column="postcode"></result>
+        <result property="detailAddress" column="detailaddress"></result>
+    </resultMap>
+    <resultMap id="MemberAddress" type="Member">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <association property="address" resultMap="Address"></association>
+    </resultMap>
+
+</mapper>
